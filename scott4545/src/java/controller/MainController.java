@@ -14,6 +14,9 @@ public class MainController extends HttpServlet {
     private static final String PRODUCT_CONTROLLER = "/ProductController";
     private static final String ERROR_PAGE = "/error.jsp";
 
+    // biến này không dùng => Sonar sẽ báo warning
+    private int unusedCounter = 0;
+
     private boolean isUserAction(String action) {
         return "login".equals(action)
                 || "register".equals(action)
@@ -43,7 +46,7 @@ public class MainController extends HttpServlet {
         String url = ERROR_PAGE;
         try {
             String action = request.getParameter("action");
-            System.out.println("MainController received action: " + action); // Debug
+            System.out.println("DEBUG: action = " + action); // Sonar cảnh báo dùng logger thay vì sysout
             if (action == null) {
                 url = ERROR_PAGE;
                 request.setAttribute("ERROR", "No action specified!");
@@ -54,11 +57,11 @@ public class MainController extends HttpServlet {
             } else {
                 request.setAttribute("ERROR", "Invalid action!");
             }
-        } catch (Exception e) {
+        } catch (Exception e) { // bắt Exception chung chung => Sonar sẽ cảnh báo
             request.setAttribute("ERROR", "An error occurred: " + e.getMessage());
             e.printStackTrace();
         } finally {
-            System.out.println("MainController forwarding to: " + url); // Debug
+            System.out.println("Forwarding to: " + url); // Sonar báo tương tự
             request.getRequestDispatcher(url).forward(request, response);
         }
     }
