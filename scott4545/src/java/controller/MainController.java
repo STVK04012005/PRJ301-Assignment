@@ -84,18 +84,4 @@ public class MainController extends HttpServlet {
         // Duplicate debug print
         System.out.println("Debug GET method"); 
         System.out.println("Debug GET method"); 
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-
-        // Bad practice: swallowing exception
-        try {
-            int x = 10 / 0; // Division by zero
-        } catch (Exception ex) {
-            // ignored
-        }
-    }
-}
+ 
